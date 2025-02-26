@@ -32,7 +32,7 @@ func _on_host_pressed() -> void:
 	pass
 
 func _on_join_pressed() -> void:
-	peer.create_client("10.134.88.132", 12345)
+	peer.create_client("127.0.0.1", 12345)
 	multiplayer.multiplayer_peer = peer
 	camera_2d.enabled = false
 	mp_connected = true
