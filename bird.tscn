@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://tapx1dp63xpa"]
+
+[ext_resource type="Script" path="res://bird.gd" id="1_8nysf"]
+[ext_resource type="Texture2D" uid="uid://d4hq6868ex0ou" path="res://BIRDSPRITESHEET_White.png" id="1_mv1xi"]
+[ext_resource type="PackedScene" uid="uid://dy37i2pue1viu" path="res://hit_box.tscn" id="3_3547t"]
+
+[sub_resource type="Animation" id="Animation_uq2jj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0xnsa"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4, 7]
+}
+
+[sub_resource type="Animation" id="Animation_ne6qb"]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [36, 39]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.729264, 0.0230083, 0.315938, 1), Color(0.74533, 0, 0.196397, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pq1g0"]
+_data = {
+"RESET": SubResource("Animation_uq2jj"),
+"hurt": SubResource("Animation_ne6qb"),
+"idle": SubResource("Animation_0xnsa")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5oi4m"]
+size = Vector2(9, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ap16t"]
+size = Vector2(18, 20)
+
+[node name="Bird" type="CharacterBody2D"]
+script = ExtResource("1_8nysf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mv1xi")
+hframes = 4
+vframes = 13
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_pq1g0")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 6)
+shape = SubResource("RectangleShape2D_5oi4m")
+
+[node name="Turnaround" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="HitBox" parent="." instance=ExtResource("3_3547t")]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ap16t")

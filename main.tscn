@@ -10,19 +10,23 @@ player_scene = ExtResource("2_6ufs3")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Host" type="Button" parent="."]
-offset_left = -565.0
-offset_top = -317.0
-offset_right = -464.0
-offset_bottom = -286.0
+offset_left = -107.0
+offset_top = -81.0
+offset_right = -6.0
+offset_bottom = -50.0
 text = "HOST GAME"
 
 [node name="Join" type="Button" parent="."]
-offset_left = -454.0
-offset_top = -317.0
-offset_right = -367.0
-offset_bottom = -286.0
+offset_left = 4.0
+offset_top = -81.0
+offset_right = 97.0
+offset_bottom = -50.0
 text = "JOIN GAME"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://player.tscn")
 spawn_path = NodePath("..")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
