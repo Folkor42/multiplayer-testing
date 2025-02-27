@@ -15,8 +15,12 @@ func _ready() -> void:
 	host.pressed.connect (_on_host_pressed)
 	join.pressed.connect (_on_join_pressed)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	timer.timeout.connect (spawn_bird)
+	timer.timeout.connect (host_spawn_bird)
 
+func host_spawn_bird()->void:
+	if mp_connected:
+		spawn_bird()
+	
 @rpc("authority", "call_remote")
 func spawn_bird()->void:
 	var bird = BIRD_SCENE.instantiate()
